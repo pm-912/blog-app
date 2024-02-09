@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readers' Blog</title>
+    {{!-- <style src="/css/jass.css"></style> --}}
+    <style src="/css/style.css"></style>
+</head>
+
+<body>
+    <header class="display-flex">
+        <h1>
+            <a href="/">Readers' Blog: A Book Club for the Nerds</a>
+        </h1>
+        <nav>
+            {{#if logged_in}}
+            <a href="/posts">See all posts!</a> |
+            <button class="button" id="logout">logout</button>
+            {{else}}
+            <a href="/login">login</a>
+            {{/if}}
+        </nav>
+    </header>
+    <main>
+        {{{ body }}}
+    </main>
+    <footer>
+        <span>A Peter Martin Production</span>
+    </footer>
+
+    {{#if logged_in}}
+    <script src="/js/logout.js"></script>
+    {{/if}}
+</body>
+
+</html>

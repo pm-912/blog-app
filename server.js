@@ -1,10 +1,10 @@
-//require node modules
+// require node modules
 const path = require('');
 const express = require('express');
 const session = require('express-session');
 const exphbr = require('express-handlebars');
 
-//require routes
+// require routes
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -13,7 +13,6 @@ const app = express(); //new instance of express
 const PORT = process.env.PORT || 3001;
 
 
-//session middleware
 const sess = {
     secret: process.env.SECRET,
     cookie: {},
@@ -22,10 +21,17 @@ const sess = {
     store: new SequelizeStore({
         db: sequelize
     })
-}
+};
+
+// define all middleware
 app.use(session(sess));
 
-
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.use(routes)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // call port
 sequelize.sync({ force: false }).then(() => {
